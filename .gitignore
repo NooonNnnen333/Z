@@ -52,3 +52,45 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# === MAUI-specific ===
+
+# Platforms-specific bin/obj (Android, iOS, etc.)
+**/obj/
+**/bin/
+
+# Device-specific build folders
+**/Debug/
+**/Release/
+
+# Temporary Xcode / iOS stuff
+*.xcuserstate
+*.xcworkspace/
+*.xcodeproj/
+*.pbxproj
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserdatad/
+
+# Mac Catalyst builds
+**/maccatalyst-arm64/
+**/maccatalyst-x64/
+
+# iOS simulator builds
+**/iossimulator-arm64/
+**/iossimulator-x64/
+
+# Android build artifacts
+**/android-arm64/
+**/android-arm/
+**/android-x86/
+**/android-x64/
+
+# JetBrains Rider & VS Code
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
