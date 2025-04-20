@@ -5,9 +5,15 @@
              x:DataType="viewmodel:ViewModelZ"
              x:Class="AppForVision.MainPage"
              Shell.NavBarIsVisible="False">
-    <StackLayout Padding="30" VerticalOptions="CenterAndExpand" Spacing="20">
+    <Grid Padding="30" RowSpacing="20">
         <!-- MainPage.xaml -->
-        <VerticalStackLayout Padding="30" Spacing="20">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <VerticalStackLayout Grid.Row="0" Spacing="20">
             <DatePicker 
                 x:Name="MyDatePicker"
                 Format="D"
@@ -17,19 +23,20 @@
                 x:Name="SelectedDateLabel"
                 Text="Выбранная дата:"
                 HorizontalOptions="Center" />
-        </VerticalStackLayout>
+            <Label 
+                Text="{Binding CalendDate.Date, StringFormat='{0:MM-dd}'}"
+                HorizontalOptions="Center"/>
+        
 
         <Label 
             Text="{Binding TestTaxt}"
             VerticalOptions="Center"
             FontSize="24"/>
-        <Button Text="Посмотреть"
-                Command="{Binding SelectBaseMCommand}"/>
-        <Picker Title=""
-                ItemsSource="{Binding OptionsForPicker}"
-                SelectedItem="{Binding StrokaForPicker, Mode=TwoWay}"
-                Margin="10" />
-        <CollectionView ItemsSource="{Binding Zov}" Margin="20">
+            
+        </VerticalStackLayout>
+        
+        <CollectionView Grid.Row="1" 
+                        ItemsSource="{Binding Zov}" Margin="20">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type viewmodel:Time}">
                     <Border Stroke="LightGray" StrokeThickness="1" Margin="2" Padding="2">
@@ -47,7 +54,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </StackLayout>
+    </Grid>
 
     
 </ContentPage>

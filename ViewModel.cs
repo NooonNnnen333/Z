@@ -26,8 +26,9 @@ public partial class ViewModelZ : ObservableObject
     };
 
     [ObservableProperty] public string strokaForPicker;
-    
-    public DateTime ddd;
+
+    [ObservableProperty] 
+   public DateTime calendDate; // Дата из колендаря
     
 //---------------------Методы-------------------------------------------------------------------------------------------
     
@@ -35,20 +36,17 @@ public partial class ViewModelZ : ObservableObject
     {
         Zov = new ObservableCollection<Time>();   // Иницилизируем массив для отображения
         LoadBase(); // Иницилизируемся в БД
+        calendDate = DateTime.UtcNow;
+        SelectBase();
     }
 
     [RelayCommand]
     public async Task SelectBaseM()
     {
-        if (StrokaForPicker != null)
+        if (calendDate != null)
         {
             TestTaxt = "Загрузка...";
             await SelectBase();
-        }
-        else if (StrokaForPicker == null)
-        {
-            await Shell.Current.DisplayAlert("Когда?", "Выберите дату\n" +
-                                                       "из выпадающего списка (он снизу кнопки).", "Услышал");
         }
         
     }
@@ -78,28 +76,9 @@ public partial class ViewModelZ : ObservableObject
 
     public async Task SelectBase()
     {
-        DateTime data;
-        switch (StrokaForPicker)
-        {
-            case "Сегодня":
-                data = DateTime.UtcNow.Date;
-                break;
-            
-            case "Вчера":
-                data = DateTime.UtcNow.Date.AddDays(-1);
-                break;
-            
-            case "Позавчера":
-                data = DateTime.UtcNow.Date.AddDays(-2);
-                break;
-            
-            default: return;
-            
-        }
-
-
-
-        DateTime dddata = ddd.Date;
+        TestTaxt = "Загрузка...";
+        
+        DateTime dddata = calendDate.Date;
         
         var writedInf = await supabase.From<Time>()     // Запрос в БД на Селект
             .Where(x => x.bdate == dddata)
@@ -107,7 +86,7 @@ public partial class ViewModelZ : ObservableObject
             .Order(x => x.Id, Supabase.Postgrest.Constants.Ordering.Descending)
             .Limit(10)
             .Get();
-        TestTaxt = $"{dddata.ToString()}"; // Для проверки
+        //TestTaxt = $"{dddata.ToString()}"; // Для проверки
         
         List<Time> modelsTime = new List<Time>(writedInf.Models);
         
@@ -122,6 +101,8 @@ public partial class ViewModelZ : ObservableObject
 
         Zov = new ObservableCollection<Time>(aZov);
 
+        TestTaxt = "";
+        
     }
     
     

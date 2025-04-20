@@ -16,7 +16,16 @@ public partial class MainPage : ContentPage
 
     private void OnDateSelected(object sender, DateChangedEventArgs e)
     {
-        vm.ddd = e.NewDate;
+        if (e != null)
+        {
+            vm.CalendDate = e.NewDate;
+            vm.SelectBase();
+        }
+        else
+        {
+            vm.CalendDate = DateTime.UtcNow;
+            vm.SelectBase();
+        }
     }
 
 
