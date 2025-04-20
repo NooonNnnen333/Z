@@ -22,6 +22,11 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+node_modules/
+*.log
+__pycache__/
+.DS_Store
+.env
 
 # .NET Core
 project.lock.json
@@ -52,3 +57,8 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+
+# Rider
+.idea/
+*.im
